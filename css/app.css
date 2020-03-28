@@ -1,5 +1,3 @@
 body {
-  background-color: green; }
-
-footer {
-  background-color: blue; }
+  background-color: red;
+  display: flex; }
