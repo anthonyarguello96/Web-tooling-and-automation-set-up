@@ -4,6 +4,9 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 const eslint = require('gulp-eslint');
+const jasmineBrowser = require('gulp-jasmine-browser');
+const watch = require('gulp-watch');
+
 
 gulp.task('default', () => {
   gulp.watch('sass/**/*.scss', gulp.series('styles', reload));
@@ -39,4 +42,13 @@ gulp.task('lint', () => {
   // To have the process exit with an error code (1) on
   // lint error, return the stream and pipe to failAfterError last.
       .pipe(eslint.failAfterError());
+});
+
+
+gulp.task('jasmine', () => {
+  const filesForTest = ['js/**/*.js', 'spec/**/*_spec.js'];
+  return gulp.src(filesForTest)
+      .pipe(watch(filesForTest))
+      .pipe(jasmineBrowser.specRunner())
+      .pipe(jasmineBrowser.server({port: 8888}));
 });
