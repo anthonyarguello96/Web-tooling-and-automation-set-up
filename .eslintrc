@@ -11,6 +11,6 @@
     },
 
 "rules": {
-  //Aditional-per-project rules
+  "require-jsdoc" : 0
   }
 }
