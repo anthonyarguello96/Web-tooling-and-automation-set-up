@@ -26,7 +26,7 @@ function watch() {
 
 function styles(cb) {
   gulp.src('sass/**/*.scss')
-      .pipe(sass())
+      .pipe(sass({outputStyle: 'compressed'}))
       .on('error', sass.logError)
       .pipe(
           autoprefixer({
