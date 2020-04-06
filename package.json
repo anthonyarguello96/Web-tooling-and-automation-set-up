@@ -17,6 +17,7 @@
     "braces": "^3.0.2",
     "browser-sync": "^2.26.7",
     "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
     "gulp-eslint": "^6.0.0",
     "gulp-jasmine-browser": "^4.1.0",
     "gulp-sass": "^4.0.2",
