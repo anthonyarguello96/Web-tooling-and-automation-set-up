@@ -8,6 +8,7 @@ const eslint = require('gulp-eslint');
 const jasmineBrowser = require('gulp-jasmine-browser');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 // const watch = require('gulp-watch');
 
 
@@ -80,6 +81,7 @@ function copyImages(cb) {
 
 function scripts() {
   return gulp.src('js/**/*.js')
+      .pipe(babel())
       .pipe(concat('all.js'))
       .pipe(gulp.dest('dist/js'));
 }
@@ -87,6 +89,7 @@ function scripts() {
 
 function scriptsDist() {
   return gulp.src('js/**/*.js')
+      .pipe(babel())
       .pipe(concat('all.js'))
       .pipe(uglify())
       .pipe(gulp.dest('dist/js'));
