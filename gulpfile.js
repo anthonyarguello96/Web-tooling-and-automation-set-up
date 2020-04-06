@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-// const {series} = require('gulp');
+const {series} = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
@@ -92,9 +92,10 @@ function scriptsDist() {
       .pipe(gulp.dest('dist/js'));
 }
 
-
-gulp.task('default', gulp.parallel(styles, watch, lint,
-    copyHtml, copyImages, 'jasmine'));
+function dist(cb) {
+  series(copyHtml, copyImages, styles, lint, scriptsDist);
+  cb();
+}
 
 
 exports.copyHtml = copyHtml;
@@ -103,6 +104,8 @@ exports.styles = styles;
 exports.lint = lint;
 exports.scripts = scripts;
 exports.scriptsDist = scriptsDist;
-
+exports.dist = dist;
+exports.default =series(styles, watch, lint,
+    copyHtml, copyImages, 'jasmine');
 // Notes:
 // note1: Keep an eyeon the function copyImages and its path.
