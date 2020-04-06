@@ -9,6 +9,7 @@ const jasmineBrowser = require('gulp-jasmine-browser');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
+const sourcemaps = require('gulp-sourcemaps');
 // const watch = require('gulp-watch');
 
 
@@ -89,9 +90,11 @@ function scripts() {
 
 function scriptsDist() {
   return gulp.src('js/**/*.js')
+      .pipe(sourcemaps.init())
       .pipe(babel())
       .pipe(concat('all.js'))
       .pipe(uglify())
+      .pipe(sourcemaps.write())
       .pipe(gulp.dest('dist/js'));
 }
 
