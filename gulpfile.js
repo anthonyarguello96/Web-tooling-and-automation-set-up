@@ -7,6 +7,7 @@ const reload = browserSync.reload;
 const eslint = require('gulp-eslint');
 const jasmineBrowser = require('gulp-jasmine-browser');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
 // const watch = require('gulp-watch');
 
 
@@ -67,8 +68,11 @@ function copyHtml(cb) {
   cb();
 }
 
+
 function copyImages(cb) {
   gulp.src('img/')
+  // note1: Just make sure the files inside img are being copy properly
+  // I think it might need a wildcard (*) to pull the files
       .pipe(gulp.dest('dist/img'));
   cb();
 }
@@ -80,14 +84,18 @@ function scripts() {
       .pipe(gulp.dest('dist/js'));
 }
 
+
 function scriptsDist() {
-  gulp.src('js?**/*.js')
+  return gulp.src('js/**/*.js')
       .pipe(concat('all.js'))
+      .pipe(uglify())
       .pipe(gulp.dest('dist/js'));
 }
 
+
 gulp.task('default', gulp.parallel(styles, watch, lint,
     copyHtml, copyImages, 'jasmine'));
+
 
 exports.copyHtml = copyHtml;
 exports.copyImages = copyImages;
@@ -95,6 +103,6 @@ exports.styles = styles;
 exports.lint = lint;
 exports.scripts = scripts;
 exports.scriptsDist = scriptsDist;
-// exports.jasmine = jasmine;
 
-// note: Keep an eyeon the function copyImages and its path.
+// Notes:
+// note1: Keep an eyeon the function copyImages and its path.
