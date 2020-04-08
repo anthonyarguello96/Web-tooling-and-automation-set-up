@@ -21,7 +21,7 @@ function watch() {
   });
   gulp.watch('sass/**/*.scss', gulp.parallel(styles));
   gulp.watch('sass/**/*.scss').on('change', reload);
-  gulp.watch('js/**/*.js', gulp.series(lint));
+  gulp.watch('js/**/*.js', gulp.series(lint, scripts));
   gulp.watch('js/**/*.js').on('change', reload);
   gulp.watch('index.html', gulp.parallel(copyHtml));
   gulp.watch('*.html').on('change', reload);
