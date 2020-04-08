@@ -10,6 +10,8 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
+const imagemin = require('gulp-imagemin');
+const imageminPngquant = require('imagemin-pngquant');
 // const watch = require('gulp-watch');
 
 
@@ -71,12 +73,13 @@ function copyHtml(cb) {
 }
 
 
-function copyImages(cb) {
-  gulp.src('img/')
-  // note1: Just make sure the files inside img are being copy properly
-  // I think it might need a wildcard (*) to pull the files
+function copyImages() {
+  return gulp.src('img/*')
+      .pipe(imagemin({
+        progressive: true,
+        use: imageminPngquant(),
+      }))
       .pipe(gulp.dest('dist/img'));
-  cb();
 }
 
 
@@ -111,7 +114,8 @@ exports.lint = lint;
 exports.scripts = scripts;
 exports.scriptsDist = scriptsDist;
 exports.dist = dist;
-exports.default =series(styles, watch, lint,
-    copyHtml, copyImages, 'jasmine');
+exports.default =series(styles, lint,
+    copyHtml, copyImages, 'jasmine', watch);
+
 // Notes:
 // note1: Keep an eyeon the function copyImages and its path.
